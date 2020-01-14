@@ -3,6 +3,12 @@
 > A dynamic component specifically designed for React apps, supported with a couple of Vue-esque features.
 
 [![NPM](https://img.shields.io/npm/v/r-dynamic.svg)](https://www.npmjs.com/package/r-dynamic)
+[![NPM Bundle Size](https://img.shields.io/bundlephobia/min/r-dynamic)](https://www.npmjs.com/package/r-dynamic)
+[![License](https://img.shields.io/npm/l/r-dynamic)](https://www.npmjs.com/package/r-dynamic)
+[![Node Version](https://img.shields.io/node/v/r-dynamic)](https://www.npmjs.com/package/r-dynamic)
+[![React Version](https://img.shields.io/npm/dependency-version/r-dynamic/peer/react)](https://www.npmjs.com/package/r-dynamic)
+[![Downloads](https://img.shields.io/npm/dt/r-dynamic)](https://www.npmjs.com/package/r-dynamic)
+
 
 ## ✨ Features
 - 🎉 All React components could be dynamically rendered.
@@ -11,9 +17,9 @@
 - 😎 Vue-like list rendering (v-for) is supported.
 - 👌 Vue-like conditional rendering (v-if) is supported.
 - 💎 Smooth development experience using Typescript (index.d.ts is provided).
-- ⚡️ Tiny size (2.5KB) and high performance (written in functional component).
+- ⚡️ Tiny size (1.85KB) and blazing fast (written in functional component).
 
-## Table of Contents
+## 📖 Table of Contents
 - [🅿️ Prerequisites](#🅿️-prerequisites)
 - [⏩ Getting Started](#⏩-getting-started)
 - [⛵️ Guide](#⛵️-guide)
@@ -26,6 +32,10 @@
     - [Work with other React components](#work-with-other-react-components)
     - [Conditional Rendering](#conditional-rendering)
     - [List Rendering](#list-rendering)
+        - [Rendering duplicates](#rendering-duplicates)
+        - [Iterative rendering](#iterative-rendering)
+        - [Conditional rendering for a specific item in iteration](#conditional-rendering-for-a-specific-item-in-iteration)
+        - [Set a unique key for each item](#set-a-unique-key-for-each-item)
 - [🅰️ APIs](#🅰️-apis)
 - [©️ License](#©️-license)
 - [🙏 Contribution](#🙏-contribution)
@@ -286,6 +296,25 @@ We will get the following result:
   <li>
     <span>3 -- this is yellow</span>
   </li>
+</ul>
+```
+
+#### Set a unique key for each item
+By default, each item in the iteration is assigned with its corresponding index. Though unique to some extent, it is mutable, which could lead to low performance under some circumstances. Thus, I recommend you to assign a unique and immutable key to each item via **$for_key** prop:
+```js
+const obj = [
+  {name: 'Bob', gender: 'male', id: 'MNREX0J87K'},
+  {name: 'Alice', gender: 'female', id: '5LB7G5YN0B'},
+  {name: 'Costa', gender: 'male', id: 'YLBI1KE6VR'}
+]
+
+<ul>
+  <Dynamic
+    $as='li'
+    $for={obj}
+    $for_key={(item) => item.id}
+    $for_render={(item, index) => <span>{item.name} -- {item.gender}</span>}
+  />
 </ul>
 ```
 
